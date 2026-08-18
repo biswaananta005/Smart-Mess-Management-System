@@ -1,0 +1,37 @@
+.star-rating-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.star-btn {
+  background: none;
+  border: none;
+  padding: 2px;
+  cursor: pointer;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+}
+
+.star-rating-container.readonly .star-btn {
+  cursor: default;
+}
+
+.star-btn:hover:not(:disabled) {
+  transform: scale(1.15);
+}
+
+.star-icon {
+  stroke: var(--text-light);
+  fill: transparent;
+  transition: var(--transition-fast);
+}
+
+.star-btn.active .star-icon,
+.star-icon.filled {
+  stroke: var(--accent-amber);
+  fill: var(--accent-amber);
+}

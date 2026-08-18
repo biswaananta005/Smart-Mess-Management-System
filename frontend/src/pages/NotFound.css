@@ -1,0 +1,52 @@
+.not-found-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+}
+
+.not-found-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 440px;
+  box-shadow: var(--shadow-md);
+}
+
+.not-found-icon {
+  color: var(--accent-amber);
+}
+
+.not-found-card h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.not-found-card p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.home-link-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: var(--primary);
+  color: #FFFFFF;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.home-link-btn:hover {
+  background-color: var(--primary-hover);
+}

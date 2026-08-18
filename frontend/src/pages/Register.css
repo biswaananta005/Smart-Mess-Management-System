@@ -1,0 +1,24 @@
+.register-card {
+  max-width: 520px;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.select-input {
+  padding-left: 12px;
+  cursor: pointer;
+}
+
+@media (max-width: 520px) {
+  .form-row {
+    flex-direction: column;
+    gap: 18px;
+  }
+}
