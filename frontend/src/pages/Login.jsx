@@ -49,7 +49,7 @@ const Login = () => {
               <input
                 type="text"
                 required
-                placeholder="student@mess.com or STU1001"
+                placeholder="Enter your email or student ID"
                 value={identifier}
                 onChange={(e) => setIdentifier(e.target.value)}
                 className="form-input"

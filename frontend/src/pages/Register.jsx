@@ -56,7 +56,7 @@ const Register = () => {
                 type="text"
                 name="name"
                 required
-                placeholder="Aarav Sharma"
+                placeholder="Enter your full name"
                 value={formData.name}
                 onChange={handleChange}
                 className="form-input"
@@ -72,7 +72,7 @@ const Register = () => {
                 type="email"
                 name="email"
                 required
-                placeholder="student@mess.com"
+                placeholder="Enter your email"
                 value={formData.email}
                 onChange={handleChange}
                 className="form-input"
@@ -104,7 +104,7 @@ const Register = () => {
                     type="text"
                     name="rollNumber"
                     required
-                    placeholder="STU1001"
+                    placeholder="Enter your registered roll number"
                     value={formData.rollNumber}
                     onChange={handleChange}
                     className="form-input"
@@ -138,7 +138,7 @@ const Register = () => {
                   <input
                     type="text"
                     name="department"
-                    placeholder="Computer Science"
+                    placeholder="Enter your branch"
                     value={formData.department}
                     onChange={handleChange}
                     className="form-input"
