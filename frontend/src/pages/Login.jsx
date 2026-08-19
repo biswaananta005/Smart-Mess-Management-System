@@ -49,7 +49,7 @@ const Login = () => {
               <input
                 type="text"
                 required
-                placeholder="Enter your email or student ID"
+                placeholder="student@mess.com or STU1001"
                 value={identifier}
                 onChange={(e) => setIdentifier(e.target.value)}
                 className="form-input"
@@ -91,14 +91,14 @@ const Login = () => {
             <button
               type="button"
               className="demo-btn admin"
-              onClick={() => handleQuickFill('admin@mess.com', 'Password123')}
+              onClick={() => handleQuickFill('messadmin@gmail.com', 'mess@1234')}
             >
               Mess Admin
             </button>
             <button
               type="button"
               className="demo-btn authority"
-              onClick={() => handleQuickFill('authority@mess.com', 'Password123')}
+              onClick={() => handleQuickFill('collegeauthority@gmail.com', 'authority@1234')}
             >
               College Authority
             </button>

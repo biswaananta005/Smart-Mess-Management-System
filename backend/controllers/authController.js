@@ -9,9 +9,9 @@ const generateToken = (id) => {
 
 const registerUser = async (req, res) => {
   try {
-    const { name, email, password, role, rollNumber, roomNumber, department } = req.body;
+    const { name, email, password, rollNumber, roomNumber, department } = req.body;
 
-    const userExists = await User.findOne({ email });
+    const userExists = await User.findOne({ email: email.toLowerCase() });
     if (userExists) {
       return res.status(400).json({
         success: false,
@@ -20,31 +20,30 @@ const registerUser = async (req, res) => {
       });
     }
 
-    if (role === 'student' && !rollNumber) {
+    if (!rollNumber) {
       return res.status(400).json({
         success: false,
-        message: 'Roll number is required for student registration',
+        message: 'Roll number / Student ID is required for registration',
         data: null
       });
     }
 
-    if (rollNumber) {
-      const rollExists = await User.findOne({ rollNumber: rollNumber.toUpperCase() });
-      if (rollExists) {
-        return res.status(400).json({
-          success: false,
-          message: 'Roll number is already registered',
-          data: null
-        });
-      }
+    const rollExists = await User.findOne({ rollNumber: rollNumber.toUpperCase() });
+    if (rollExists) {
+      return res.status(400).json({
+        success: false,
+        message: 'Roll number is already registered',
+        data: null
+      });
     }
 
+    // Public registration is strictly forced to 'student' role
     const user = await User.create({
       name,
-      email,
+      email: email.toLowerCase(),
       password,
-      role: role || 'student',
-      rollNumber: rollNumber ? rollNumber.toUpperCase() : undefined,
+      role: 'student',
+      rollNumber: rollNumber.toUpperCase(),
       roomNumber,
       department
     });
@@ -53,7 +52,7 @@ const registerUser = async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: 'User registered successfully',
+      message: 'Student registered successfully',
       data: {
         _id: user._id,
         name: user.name,
@@ -88,6 +87,7 @@ const loginUser = async (req, res) => {
     }
 
     const cleanInput = loginInput.trim();
+
     // Search user by email (case-insensitive) OR student roll number (case-insensitive)
     const user = await User.findOne({
       $or: [

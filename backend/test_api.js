@@ -60,20 +60,20 @@ async function runTests() {
     console.log('2b. POST /api/v1/auth/login (Student via Student ID STU1001):', studentLoginRoll.status === 200 ? 'PASSED' : 'FAILED');
     const studentToken = studentLoginRoll.data.data?.token;
 
-    // 3. Login as Admin
+    // 3. Login as Mess Admin
     const adminLogin = await makeRequest('/auth/login', 'POST', {
-      email: 'admin@mess.com',
-      password: 'Password123'
+      identifier: 'messadmin@gmail.com',
+      password: 'mess@1234'
     });
-    console.log('3. POST /api/v1/auth/login (Admin):', adminLogin.status === 200 ? 'PASSED' : 'FAILED');
+    console.log('3. POST /api/v1/auth/login (Mess Admin messadmin@gmail.com):', adminLogin.status === 200 ? 'PASSED' : 'FAILED');
     const adminToken = adminLogin.data.data?.token;
 
-    // 4. Login as Authority
+    // 4. Login as College Authority
     const authLogin = await makeRequest('/auth/login', 'POST', {
-      email: 'authority@mess.com',
-      password: 'Password123'
+      identifier: 'collegeauthority@gmail.com',
+      password: 'authority@1234'
     });
-    console.log('4. POST /api/v1/auth/login (Authority):', authLogin.status === 200 ? 'PASSED' : 'FAILED');
+    console.log('4. POST /api/v1/auth/login (College Authority collegeauthority@gmail.com):', authLogin.status === 200 ? 'PASSED' : 'FAILED');
     const authToken = authLogin.data.data?.token;
 
     // 5. Fetch Today Menu

@@ -9,7 +9,6 @@ const Register = () => {
     name: '',
     email: '',
     password: '',
-    role: 'student',
     rollNumber: '',
     roomNumber: '',
     department: 'Computer Science'
@@ -30,9 +29,7 @@ const Register = () => {
     setSubmitting(false);
 
     if (res?.success) {
-      if (res.role === 'admin') navigate('/admin');
-      else if (res.role === 'authority') navigate('/authority');
-      else navigate('/student');
+      navigate('/student');
     }
   };
 
@@ -43,8 +40,8 @@ const Register = () => {
           <div className="auth-logo-badge">
             <UtensilsCrossed size={28} />
           </div>
-          <h2 className="auth-title">Create Account</h2>
-          <p className="auth-subtitle">Register for Smart Mess Access</p>
+          <h2 className="auth-title">Student Registration</h2>
+          <p className="auth-subtitle">Create your Student Account for Mess Access</p>
         </div>
 
         <form onSubmit={handleSubmit} className="auth-form">
@@ -56,24 +53,8 @@ const Register = () => {
                 type="text"
                 name="name"
                 required
-                placeholder="Enter your full name"
+                placeholder="Aarav Sharma"
                 value={formData.name}
-                onChange={handleChange}
-                className="form-input"
-              />
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label className="form-label">Email Address</label>
-            <div className="input-with-icon">
-              <Mail size={18} className="input-icon" />
-              <input
-                type="email"
-                name="email"
-                required
-                placeholder="Enter your email"
-                value={formData.email}
                 onChange={handleChange}
                 className="form-input"
               />
@@ -82,71 +63,69 @@ const Register = () => {
 
           <div className="form-row">
             <div className="form-group flex-1">
-              <label className="form-label">Account Role</label>
-              <select
-                name="role"
-                value={formData.role}
-                onChange={handleChange}
-                className="form-input select-input"
-              >
-                <option value="student">Student</option>
-                <option value="admin">Mess Admin</option>
-                <option value="authority">College Authority</option>
-              </select>
+              <label className="form-label">Email Address</label>
+              <div className="input-with-icon">
+                <Mail size={18} className="input-icon" />
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="student@mess.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="form-input"
+                />
+              </div>
             </div>
 
-            {formData.role === 'student' && (
-              <div className="form-group flex-1">
-                <label className="form-label">Roll Number</label>
-                <div className="input-with-icon">
-                  <Hash size={18} className="input-icon" />
-                  <input
-                    type="text"
-                    name="rollNumber"
-                    required
-                    placeholder="Enter your registered roll number"
-                    value={formData.rollNumber}
-                    onChange={handleChange}
-                    className="form-input"
-                  />
-                </div>
+            <div className="form-group flex-1">
+              <label className="form-label">Roll Number / Student ID</label>
+              <div className="input-with-icon">
+                <Hash size={18} className="input-icon" />
+                <input
+                  type="text"
+                  name="rollNumber"
+                  required
+                  placeholder="STU1001"
+                  value={formData.rollNumber}
+                  onChange={handleChange}
+                  className="form-input"
+                />
               </div>
-            )}
+            </div>
           </div>
 
-          {formData.role === 'student' && (
-            <div className="form-row">
-              <div className="form-group flex-1">
-                <label className="form-label">Room Number</label>
-                <div className="input-with-icon">
-                  <Home size={18} className="input-icon" />
-                  <input
-                    type="text"
-                    name="roomNumber"
-                    placeholder="B-304"
-                    value={formData.roomNumber}
-                    onChange={handleChange}
-                    className="form-input"
-                  />
-                </div>
-              </div>
-
-              <div className="form-group flex-1">
-                <label className="form-label">Department</label>
-                <div className="input-with-icon">
-                  <BookOpen size={18} className="input-icon" />
-                  <input
-                    type="text"
-                    name="department"
-                    placeholder="Enter your branch"
-                    value={formData.department}
-                    onChange={handleChange}
-                    className="form-input"
-                  />
-                </div>
+          <div className="form-row">
+            <div className="form-group flex-1">
+              <label className="form-label">Room Number</label>
+              <div className="input-with-icon">
+                <Home size={18} className="input-icon" />
+                <input
+                  type="text"
+                  name="roomNumber"
+                  placeholder="B-304"
+                  value={formData.roomNumber}
+                  onChange={handleChange}
+                  className="form-input"
+                />
               </div>
             </div>
-          )}
+
+            <div className="form-group flex-1">
+              <label className="form-label">Department</label>
+              <div className="input-with-icon">
+                <BookOpen size={18} className="input-icon" />
+                <input
+                  type="text"
+                  name="department"
+                  placeholder="Computer Science"
+                  value={formData.department}
+                  onChange={handleChange}
+                  className="form-input"
+                />
+              </div>
+            </div>
+          </div>
 
           <div className="form-group">
             <label className="form-label">Password</label>
@@ -166,13 +145,13 @@ const Register = () => {
           </div>
 
           <button type="submit" disabled={submitting} className="submit-btn">
-            {submitting ? 'Creating Account...' : 'Register Account'}
+            {submitting ? 'Creating Student Account...' : 'Register Student Account'}
             <ArrowRight size={18} />
           </button>
         </form>
 
         <div className="auth-footer-link">
-          <span>Already have an account? </span>
+          <span>Already registered? </span>
           <Link to="/login" className="link-text">Sign In</Link>
         </div>
 
