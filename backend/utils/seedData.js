@@ -34,7 +34,7 @@ const seedInitialData = async () => {
       const admin = await User.create({
         name: 'Rajesh Kumar (Mess Manager)',
         email: 'admin@mess.com',
-        password: 'Password123',
+        password: 'Mess@123',
         role: 'admin',
         department: 'Mess Operations'
       });
@@ -42,7 +42,7 @@ const seedInitialData = async () => {
       await User.create({
         name: 'Dr. S. K. Gupta (Dean Student Affairs)',
         email: 'authority@mess.com',
-        password: 'Password123',
+        password: 'college@123',
         role: 'authority',
         department: 'Administration'
       });
