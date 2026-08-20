@@ -11,15 +11,6 @@ const registerUser = async (req, res) => {
   try {
     const { name, email, password, rollNumber, roomNumber, department } = req.body;
 
-    const userExists = await User.findOne({ email: email.toLowerCase() });
-    if (userExists) {
-      return res.status(400).json({
-        success: false,
-        message: 'An account with this email already exists',
-        data: null
-      });
-    }
-
     if (!rollNumber) {
       return res.status(400).json({
         success: false,
@@ -28,13 +19,29 @@ const registerUser = async (req, res) => {
       });
     }
 
-    const rollExists = await User.findOne({ rollNumber: rollNumber.toUpperCase() });
-    if (rollExists) {
-      return res.status(400).json({
-        success: false,
-        message: 'Roll number is already registered',
-        data: null
-      });
+    const cleanEmail = email.toLowerCase().trim();
+    const cleanRoll = rollNumber.toUpperCase().trim();
+
+    // Single DB query to check email and rollNumber simultaneously
+    const existingUser = await User.findOne({
+      $or: [{ email: cleanEmail }, { rollNumber: cleanRoll }]
+    }).lean();
+
+    if (existingUser) {
+      if (existingUser.email === cleanEmail) {
+        return res.status(400).json({
+          success: false,
+          message: 'An account with this email already exists',
+          data: null
+        });
+      }
+      if (existingUser.rollNumber === cleanRoll) {
+        return res.status(400).json({
+          success: false,
+          message: 'Roll number is already registered',
+          data: null
+        });
+      }
     }
 
     // Public registration is strictly forced to 'student' role
