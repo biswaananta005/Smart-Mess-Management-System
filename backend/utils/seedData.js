@@ -5,37 +5,11 @@ const Feedback = require('../models/Feedback');
 
 const seedInitialData = async () => {
   try {
-    // Ensure constant Mess Admin account exists
-    let admin = await User.findOne({ email: 'messadmin@gmail.com' });
-    if (!admin) {
-      console.log('Seeding constant Mess Admin account (messadmin@gmail.com)...');
-      admin = await User.create({
-        name: 'Rajesh Kumar (Mess Manager)',
-        email: 'messadmin@gmail.com',
-        password: 'mess@1234',
-        role: 'admin',
-        department: 'Mess Operations'
-      });
-    }
+    const userCount = await User.countDocuments();
+    if (userCount === 0) {
+      console.log('Seeding initial demo users...');
 
-    // Ensure constant College Authority account exists
-    let authority = await User.findOne({ email: 'collegeauthority@gmail.com' });
-    if (!authority) {
-      console.log('Seeding constant College Authority account (collegeauthority@gmail.com)...');
-      authority = await User.create({
-        name: 'Dr. S. K. Gupta (Dean Student Affairs)',
-        email: 'collegeauthority@gmail.com',
-        password: 'authority@1234',
-        role: 'authority',
-        department: 'Administration'
-      });
-    }
-
-    // Seed default student account if missing
-    let student = await User.findOne({ email: 'student@mess.com' });
-    if (!student) {
-      console.log('Seeding demo student account (student@mess.com)...');
-      student = await User.create({
+      const student = await User.create({
         name: 'Aarav Sharma',
         email: 'student@mess.com',
         password: 'Password123',
@@ -46,6 +20,39 @@ const seedInitialData = async () => {
         mealRate: 50
       });
 
+      await User.create({
+        name: 'Priya Verma',
+        email: 'student2@mess.com',
+        password: 'Password123',
+        role: 'student',
+        rollNumber: 'STU1002',
+        roomNumber: 'A-102',
+        department: 'Electronics',
+        mealRate: 50
+      });
+
+      const admin = await User.create({
+        name: 'Rajesh Kumar (Mess Manager)',
+        email: 'admin@mess.com',
+        password: 'Mess@123',
+        role: 'admin',
+        department: 'Mess Operations'
+      });
+
+      await User.create({
+        name: 'Dr. S. K. Gupta (Dean Student Affairs)',
+        email: 'authority@mess.com',
+        password: 'college@1234',
+        role: 'authority',
+        department: 'Administration'
+      });
+
+      console.log('Demo users created successfully:');
+      console.log(' - Student: student@mess.com / Mess@123 (Roll: STU1001)');
+      console.log(' - Admin: admin@mess.com / Mess@123');
+      console.log(' - Authority: authority@mess.com / college@1234');
+
+      // Create initial meal selections for today for student
       const todayStr = new Date().toISOString().split('T')[0];
       await MealSelection.create({
         student: student._id,
@@ -61,6 +68,7 @@ const seedInitialData = async () => {
         }
       });
 
+      // Create initial sample feedback
       await Feedback.create({
         student: student._id,
         date: todayStr,
