@@ -5,8 +5,8 @@ const Feedback = require('../models/Feedback');
 
 const seedInitialData = async () => {
   try {
-    // Ensure constant Mess Admin account exists
-    let admin = await User.findOne({ email: 'messadmin@gmail.com' });
+    // Ensure constant Mess Admin account exists with constant credentials
+    let admin = await User.findOne({ email: 'messadmin@gmail.com' }).select('+password');
     if (!admin) {
       console.log('Seeding constant Mess Admin account (messadmin@gmail.com)...');
       admin = await User.create({
@@ -16,10 +16,15 @@ const seedInitialData = async () => {
         role: 'admin',
         department: 'Mess Operations'
       });
+    } else if (admin.role !== 'admin' || !(await admin.matchPassword('mess@1234'))) {
+      console.log('Updating constant Mess Admin credentials (messadmin@gmail.com)...');
+      admin.role = 'admin';
+      admin.password = 'mess@1234';
+      await admin.save();
     }
 
-    // Ensure constant College Authority account exists
-    let authority = await User.findOne({ email: 'collegeauthority@gmail.com' });
+    // Ensure constant College Authority account exists with constant credentials
+    let authority = await User.findOne({ email: 'collegeauthority@gmail.com' }).select('+password');
     if (!authority) {
       console.log('Seeding constant College Authority account (collegeauthority@gmail.com)...');
       authority = await User.create({
@@ -29,6 +34,11 @@ const seedInitialData = async () => {
         role: 'authority',
         department: 'Administration'
       });
+    } else if (authority.role !== 'authority' || !(await authority.matchPassword('authority@1234'))) {
+      console.log('Updating constant College Authority credentials (collegeauthority@gmail.com)...');
+      authority.role = 'authority';
+      authority.password = 'authority@1234';
+      await authority.save();
     }
 
     // Ensure demo student account exists
